@@ -1,16 +1,18 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :answer]
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = current_user.questions.all
+    @questions = current_user.my_questions.paginate(:page => params[:page])
   end
 
   # GET /questions/1
   # GET /questions/1.json
   def show
+    @answer = @question.answers.new
+    @answers = @question.answers
   end
 
   # GET /questions/new
@@ -63,6 +65,22 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def answer
+    @answer = Answer.new(answer_params)
+    @answer.user = current_user
+    @answer.question = @question
+
+    respond_to do |format|
+      if @answer.save
+        format.html { redirect_to @question, notice: 'Answer was successfully created.' }
+        format.json { render :show, status: :created, location: @answer }
+      else
+        format.html { render :show }
+        format.json { render json: @answer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
@@ -71,6 +89,10 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:title, :description)
+      params.require(:question).permit(:topic_id, :title, :description)
+    end
+
+    def answer_params
+      params.require(:answer).permit(:answer)
     end
 end

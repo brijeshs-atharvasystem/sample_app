@@ -12,13 +12,12 @@ class FollowersController < ApplicationController
     redirect_to root_path
   end
 
-  def follow_question
-    question = Question.find(params[:id])
-    redirect_to root_path and return if question.user_id == current_user.id
-    if current_user.following?(question)
+  def follow_topic
+    topic = Topic.find(params[:id])
+    if current_user.following?(topic)
       flash[:danger] = 'Already following'
     else
-      current_user.follow(question)
+      current_user.follow(topic)
       flash[:notice] = 'User is following now'
     end
     redirect_to root_path

@@ -9,4 +9,14 @@ class User < ApplicationRecord
   acts_as_follower
 
   has_many :questions
+  has_many :answers
+
+  def topics
+    following_topics
+  end
+
+  def following
+    following_users
+  end
+
 end

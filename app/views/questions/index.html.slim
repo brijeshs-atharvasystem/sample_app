@@ -19,6 +19,8 @@ table.table
         td = link_to 'Show', question, class: 'question'
         td = link_to 'Edit', edit_question_path(question)
         td = link_to 'Destroy', question, data: { confirm: 'Are you sure?' }, method: :delete
+    tr
+      td[colspan="6"] = will_paginate @questions
 
 br
 

@@ -1,9 +1,11 @@
 #navbar.collapse.navbar-collapse
   ul.nav.navbar-nav
-    li= link_to 'Home', root_path, class: 'questions'
+
     - if current_user.nil?
+      li= link_to 'Home', root_path, class: 'questions'
       li= link_to 'SIGN IN', new_user_session_path
     - else
+      li= link_to 'Home', questions_path, class: 'questions'
       li = link_to current_user.email, '#'
       li = link_to 'New Question', new_question_path
       li = link_to 'Sign Out', destroy_user_session_path, method: :delete

@@ -12,5 +12,5 @@ table.table
       tr
         td = question.title
         td = question.description
-        td = link_to 'Show', question, class: 'question'
+        td = link_to 'Show', home_question_path(question), class: 'question'
 br
