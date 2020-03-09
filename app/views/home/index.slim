@@ -1,0 +1,16 @@
+h1 All Questions
+
+table.table
+  thead
+    tr
+      th Title
+      th Description
+      th
+
+  tbody
+    - @questions.each do |question|
+      tr
+        td = question.title
+        td = question.description
+        td = link_to 'Show', question, class: 'question'
+br

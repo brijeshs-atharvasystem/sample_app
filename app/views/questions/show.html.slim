@@ -1,0 +1,20 @@
+p#notice = notice
+
+p
+  strong User:
+  = @question.user.try(:email)
+p
+  strong Title:
+  = @question.title
+p
+  strong Description:
+  = @question.description
+
+- if current_user && @question.user_id == current_user.id
+  = link_to 'Edit', edit_question_path(@question)
+  '|
+  = link_to 'Back', questions_path
+= link_to 'Follow User', follow_user_follower_path(@question.user), method: :post, class: 'follow_user btn btn-primary'
+br
+br
+= link_to 'Follow Topic', follow_question_follower_path(@question.user), method: :post, class: 'follow_topic btn btn-primary'

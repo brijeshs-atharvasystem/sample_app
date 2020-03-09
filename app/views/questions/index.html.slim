@@ -1,0 +1,25 @@
+h1 My Questions
+
+table.table
+  thead
+    tr
+      th User
+      th Title
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @questions.each do |question|
+      tr
+        td = question.user_id
+        td = question.title
+        td = question.description
+        td = link_to 'Show', question, class: 'question'
+        td = link_to 'Edit', edit_question_path(question)
+        td = link_to 'Destroy', question, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Question', new_question_path
